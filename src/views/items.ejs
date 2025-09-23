@@ -7,7 +7,7 @@
 </head>
 <body>
     <% items.forEach(item => { %>
-        <form action="/item/category/<%= item.category_id %>" method="GET">
+        <form action="/items/category/<%= item.category_id %>" method="GET">
             <button type="submit"><%= item.category_name %></button>
         </form>
     <% }) %>
@@ -20,6 +20,6 @@
         <p>Category: <%= item.category_name %></p>
         </li>
     <% }) %>
-</ul>
+    </ul>
 </body>
 </html>
