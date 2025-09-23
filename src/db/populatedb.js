@@ -24,11 +24,11 @@ INSERT INTO category (name) VALUES
 ('Sports');
 
 INSERT INTO item (name, img_path, price, category_id) VALUES
-('Wireless Headphones', '../public/item_images/item_1.jpg', 99.99, 1), 
-('Running Shoes', '../public/item_images/item_2.jpg', 79.50, 2),      
-('Novel - The Great Gatsby', '../public/item_images/item_3.jpg', 15.20, 3), 
-('Blender', '../public/item_images/item_4.jpg', 45.00, 4),            
-('Football', '../public/item_images/item_5.jpg', 25.00, 5);           
+('Wireless Headphones', '/item_images/item_1.jpg', 99.99, 1), 
+('Running Shoes', '/item_images/item_2.jpg', 79.50, 2),      
+('Novel - The Great Gatsby', '/item_images/item_3.jpg', 15.20, 3), 
+('Blender', '/item_images/item_4.jpg', 45.00, 4),            
+('Football', '/item_images/item_5.jpg', 25.00, 5);           
 `
 
 const client = new Client({
@@ -51,7 +51,6 @@ main()
     // img_path
     // price
     // category_id
-    // brand_id
 
 // category
     // id
