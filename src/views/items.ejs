@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>All items</title>
 </head>
 <body>
+    <form action="/items/create" method="GET">
+        <button type="submit">Add new item</button>
+    </form>
+
     <% items.forEach(item => { %>
         <form action="/items/category/<%= item.category_id %>" method="GET">
             <button type="submit"><%= item.category_name %></button>
