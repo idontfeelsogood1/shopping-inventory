@@ -35,9 +35,16 @@ async function createItemPost(req, res) {
     res.redirect('/items')
 }
 
+// TODO:
+async function updateItemGet(req, res) {
+    const item = await db.getItem(req.params.item_id)
+    res.render('update', { item: item })
+}
+
 module.exports = {
     allItemGet,
     categoryItemGet,
     createItemGet,
-    createItemPost
+    createItemPost,
+    updateItemGet,
 }
