@@ -10,11 +10,16 @@
         <button type="submit">Add new item</button>
     </form>
 
+    <% const set = new Set() %>
     <% items.forEach(item => { %>
-        <form action="/items/category/<%= item.category_id %>" method="GET">
-            <button type="submit"><%= item.category_name %></button>
-        </form>
+        <% if (!set.has(item.category_name)) { %>
+            <% set.add(item.category_name) %>
+            <form action="/items/category/<%= item.category_id %>" method="GET">
+                <button type="submit"><%= item.category_name %></button>
+            </form>
+        <% } %>
     <% }) %>
+
     <ul>
     <% items.forEach(item => { %>
         <li>
