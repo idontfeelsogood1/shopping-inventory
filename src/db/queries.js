@@ -68,6 +68,7 @@ async function getItem(id) {
         JOIN category ON category.id = item.category_id
         WHERE item.id = $1
     `, [id])
+    return rows[0]
 }
 
 module.exports = {
