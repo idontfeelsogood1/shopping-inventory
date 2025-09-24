@@ -16,10 +16,11 @@ function createItemGet(req, res) {
     res.render('createItem')
 }
 
-// TODO: 
-// USE MULTER TO PARSE MULTIPART BODY
 async function createItemPost(req, res) {
-    await db.addCategory(req.body.category)
+    if (!await db.categoryExisted(req.body.category)) {
+        await db.addCategory(req.body.category)
+    }
+
     const category_id = await db.getCategoryId(req.body.category)
     const img_path = '/item_images/' + req.file.filename
     
