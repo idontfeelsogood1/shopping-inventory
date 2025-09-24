@@ -29,5 +29,8 @@
         </p>
         <button type="submit">Update Item</button>
     </form>
+    <form action="/items/<%= item.item_id %>/remove" method="POST">
+        <button type="submit">Remove Item</button>
+    </form>
 </body>
 </html>
