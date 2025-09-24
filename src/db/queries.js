@@ -51,6 +51,16 @@ async function addItem(item) {
     `, [item.name, item.img_path, item.price, item.category_id])
 }
 
+async function categoryExisted(category) {
+    const { rows } = await db.query(`
+        SELECT name FROM category
+        WHERE name = $1
+    `, [category])
+
+    if (rows.length > 0) return true
+    else return false
+}
+
 module.exports = {
     getAllItems,
     getCategoryItems,
@@ -58,4 +68,5 @@ module.exports = {
     addCategory,
     getCategoryId,
     addItem,
+    categoryExisted,
 }
