@@ -1,4 +1,4 @@
-const db = require('./pool')
+const db = require('./pool')  
 
 async function getAllItems() {
     const { rows } = await db.query(`
@@ -28,8 +28,34 @@ async function getCategoryName(id) {
     return category
 }
 
+async function addCategory(category) {
+    await db.query(`
+        INSERT INTO category (name)
+        VALUES ($1)
+    `, [category])
+}
+
+async function getCategoryId(category_name) {
+    const { rows } = await db.query(`
+        SELECT id FROM category
+        WHERE name = $1
+    `, [category_name])
+    const id = rows[0].id 
+    return id
+}
+
+async function addItem(item) {
+    await db.query(`
+        INSERT INTO item (name, img_path, price, category_id)
+        VALUES ($1, $2, $3, $4)
+    `, [item.name, item.img_path, item.price, item.category_id])
+}
+
 module.exports = {
     getAllItems,
     getCategoryItems,
     getCategoryName,
+    addCategory,
+    getCategoryId,
+    addItem,
 }
