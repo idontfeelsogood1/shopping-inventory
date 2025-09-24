@@ -12,7 +12,31 @@ async function categoryItemGet(req, res) {
     res.render('category', { items: arr, category_name: name })
 }
 
+function createItemGet(req, res) {
+    res.render('createItem')
+}
+
+// TODO: 
+// USE MULTER TO PARSE MULTIPART BODY
+async function createItemPost(req, res) {
+    await db.addCategory(req.body.category)
+    const category_id = await db.getCategoryId(req.body.category)
+    const img_path = '/item_images/' + req.file.filename
+    
+    const item = {
+        name: req.body.name,
+        img_path: img_path,
+        price: req.body.price,
+        category_id: category_id
+    }
+
+    await db.addItem(item)
+    res.redirect('/items')
+}
+
 module.exports = {
     allItemGet,
     categoryItemGet,
+    createItemGet,
+    createItemPost
 }
