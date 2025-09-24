@@ -61,6 +61,15 @@ async function categoryExisted(category) {
     else return false
 }
 
+async function getItem(id) {
+    const { rows } = await db.query(`
+        SELECT item.id AS item_id, category.id AS category_id, item.name, price, img_path, category.name AS category_name
+        FROM item 
+        JOIN category ON category.id = item.category_id
+        WHERE item.id = $1
+    `, [id])
+}
+
 module.exports = {
     getAllItems,
     getCategoryItems,
@@ -69,4 +78,5 @@ module.exports = {
     getCategoryId,
     addItem,
     categoryExisted,
+    getItem,
 }
