@@ -27,6 +27,7 @@
             <label for="image">Image: </label>
             <input type="file" name="image" id="image" accept="image/*">
         </p>
+        <input type="text" name="item_id" value="<%= item.item_id %>" hidden>
         <button type="submit">Update Item</button>
     </form>
     <form action="/items/<%= item.item_id %>/remove" method="POST">
