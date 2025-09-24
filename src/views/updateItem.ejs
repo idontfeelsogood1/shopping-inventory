@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <%- include('./item.ejs', { item: item }) %>
+    <br>
+    <hr>
+    <h1>Update Item:</h1>
+    <form action="/items/<%= item.item_id %>/update" method="POST" enctype="multipart/form-data">
+        <p>
+            <label for="name">Name: </label>
+            <input type="text" name="name" id="name" value="<%= item.name %>">
+        </p>
+        <p>
+            <label for="price">Price: </label>
+            <input type="number" name="price" id="price" value="<%= item.price %>">
+        </p>
+        <p>
+            <label for="category">Category: </label>
+            <input type="text" name="category" id="category" value="<%= item.category_name %>">
+        </p>
+        <p>
+            <label for="image">Image: </label>
+            <input type="file" name="image" id="image" accept="image/*">
+        </p>
+        <button type="submit">Update Item</button>
+    </form>
+</body>
+</html>
