@@ -41,9 +41,13 @@ async function updateItemGet(req, res) {
     res.render('updateItem', { item: item })
 }
 
-// TODO:
 async function updateItemPost(req, res) {
     await db.updateItem(req)
+    res.redirect('/items')
+}
+
+async function removeItemPost(req, res) {
+    await db.removeItem(req.params.item_id)
     res.redirect('/items')
 }
 
@@ -54,4 +58,5 @@ module.exports = {
     createItemPost,
     updateItemGet,
     updateItemPost,
+    removeItemPost,
 }
