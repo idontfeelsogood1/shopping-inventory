@@ -1,4 +1,6 @@
 const db = require('./pool')  
+const fs = require('fs')
+const path = require('path')
 
 async function getAllItems() {
     const { rows } = await db.query(`
@@ -71,6 +73,56 @@ async function getItem(id) {
     return rows[0]
 }
 
+async function getItemImgPath(id) {
+    const { rows } = await db.query(`
+        SELECT img_path FROM item
+        WHERE id = $1    
+    `, [id])
+    return rows[0].img_path
+}
+
+async function deleteImg(file_path) {
+    await fs.unlink(file_path, (err) => {
+        if (err) {
+            console.log('Error deleting img.', err)
+        } else {
+            console.log("Deleted img.")
+        }
+    })
+}
+
+async function updateItem(req) {
+    const name = req.body.name
+    const price = req.body.price
+    const item_id = req.params.item_id
+    if (!await categoryExisted(req.body.category)) {
+        await addCategory(req.body.category)
+    }
+    const category_id = await getCategoryId(req.body.category)
+    
+    if (!req.file) {
+        await db.query(`
+            UPDATE item 
+            SET name = $1,
+                price = $2,
+                category_id = $3
+            WHERE id = $4
+        `, [name, price, category_id, item_id])
+    } else {
+        const image_path =  '/item_images/' + req.file.filename
+        const prev_img_path = await getItemImgPath(item_id)
+        await deleteImg(path.join(__dirname, '..', 'public', prev_img_path))
+        await db.query(`
+            UPDATE item
+            SET name = $1,
+                price = $2,
+                category_id = $3,
+                img_path = $4
+            WHERE id = $5     
+        `, [name, price, category_id, image_path, item_id])
+    }
+}
+
 module.exports = {
     getAllItems,
     getCategoryItems,
@@ -80,4 +132,5 @@ module.exports = {
     addItem,
     categoryExisted,
     getItem,
+    updateItem,
 }
