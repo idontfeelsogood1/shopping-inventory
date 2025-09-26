@@ -123,6 +123,18 @@ async function updateItem(req) {
     }
 }
 
+async function removeItem(item_id) {
+    // Get item's img_path
+    // Delete that img
+    // Delete item from db
+    const prev_img_path = await getItemImgPath(item_id)
+    await deleteImg(path.join(__dirname, '..', 'public', prev_img_path))
+    await db.query(`
+        DELETE FROM item
+        WHERE id = $1
+    `, [item_id])
+}
+
 module.exports = {
     getAllItems,
     getCategoryItems,
@@ -133,4 +145,5 @@ module.exports = {
     categoryExisted,
     getItem,
     updateItem,
+    removeItem,
 }
