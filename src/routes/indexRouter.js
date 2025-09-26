@@ -24,8 +24,8 @@ route.get('/items', itemController.allItemGet)
 route.get('/items/category/:category_id', itemController.categoryItemGet)
 route.get('/items/create', itemController.createItemGet)
 route.post('/items/create', upload.single('image'), itemController.createItemPost)
-// route.get('/items/:item_id/update', itemController.updateItemGet)
-// route.post('/items/:item_id/update', itemController.updateItemPost)
-// route.post('/items/:item_id/remove', itemController.removeItemPost)
+route.get('/items/:item_id/update', itemController.updateItemGet)
+route.post('/items/:item_id/update', upload.single('image'), itemController.updateItemPost)
+route.post('/items/:item_id/remove', itemController.removeItemPost)
 
 module.exports = route
